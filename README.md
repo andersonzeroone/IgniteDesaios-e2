@@ -107,19 +107,19 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 ```bash
 
 # Clone este repositório
-$ git clone git@github.com:andersonzeroone/plantmanager-Nlw05.git
+$ git clone git@github.com:andersonzeroone/IgniteDesaios1-e2.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd plantmanager-Nlw05
+$ cd IgniteDesaios1-e2
 
 # Instale as dependências
 $ npm install ou yarn install
 
 # Execute a aplicação
-$ expo start
+$ npm start ou yarn start
 
-# O projeto iniciará na porta:3333 - acesse http://localhost:3333
-
+# Execute a aplicação
+$ npm android ou yarn android
 ```
 
 ---
