@@ -6,10 +6,10 @@ import { Home } from './src/pages/Home';
 export default function App() {
   return (
     <>
-      <StatusBar 
-        barStyle="light-content" 
-        translucent 
-        backgroundColor="transparent" 
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
       />
       <Home />
     </>

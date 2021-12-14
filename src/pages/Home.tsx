@@ -2,45 +2,45 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
-import { Task, TasksList } from '../components/TasksList';
+import { TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
-interface TaskProps{
-  id:number;
-  title:string;
-  done:boolean;
+interface Task {
+  id: number;
+  title: string;
+  done: boolean;
 }
 
 export type EditTaskProps = {
-  taskId:number;
-  taskNewTitle:string;
+  taskId: number;
+  taskNewTitle: string;
 }
 export function Home() {
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
-    const foundItem = tasks.find(item => item.title === newTaskTitle);
+    // const foundItem = tasks.find(item => item.title === newTaskTitle);
 
-    if(foundItem){
-      Alert.alert('Task já cadastrada','Você não pode cadastrar uma task com o mesmo nome');
-      return;
-    }
+    // if (foundItem) {
+    //   Alert.alert('Task já cadastrada', 'Você não pode cadastrar uma task com o mesmo nome');
+    //   return;
+    // }
     //TODO -  add new task
-    const data = {
+    const newTask = {
       id: new Date().getTime(),
-      title:newTaskTitle,
-      done:false,
+      title: newTaskTitle,
+      done: false,
     }
 
-    setTasks( oldState => [...oldState, data]);
+    setTasks(oldState => [...oldState, newTask]);
   }
 
   function handleToggleTaskDone(id: number) {
     //TODO - toggle task done if exists
-    const updatedTasks = tasks.map( task => ({...task}));
+    const updatedTasks = tasks.map(task => ({ ...task }));
 
-    const updateTaskDone = updatedTasks.map( task => {
-      if(task.id === id){
+    const updateTaskDone = updatedTasks.map(task => {
+      if (task.id === id) {
         task.done = !task.done;
       }
       return task;
@@ -54,41 +54,45 @@ export function Home() {
 
   function handleRemoveTask(id: number) {
     //TODO - remove task from state
-    Alert.alert('Remover item', 'Tem certeza que você deseja remover esse item?',[
-      {
-        text: "Não",
-        style: "cancel"
-      },
-      { text: "Sim", onPress: () =>{
+    // Alert.alert('Remover item', 'Tem certeza que você deseja remover esse item?',[
+    //   {
+    //     text: "Não",
+    //     style: "cancel"
+    //   },
+    //   { text: "Sim", onPress: () =>{
 
-          const upDateTasks = tasks.filter(item => item.id !== id);
+    //       const upDateTasks = tasks.filter(item => item.id !== id);
 
-          setTasks(upDateTasks)
-       } 
-      }
-    ]);
+    //       setTasks(upDateTasks)
+    //    } 
+    //   }
+
+    const upDateTasks = tasks.filter(item => item.id !== id);
+
+    setTasks(upDateTasks)
+
   }
 
-  function handleEditTask({taskId,taskNewTitle}:EditTaskProps){
-    const updatedTasks = tasks.map( task => ({...task}));
+  function handleEditTask({ taskId, taskNewTitle }: EditTaskProps) {
+    const updatedTasks = tasks.map(task => ({ ...task }));
 
     const foundItem = updatedTasks.find(item => item.id === taskId);
-    if(!foundItem)
+    if (!foundItem)
       return;
 
-      foundItem.title = taskNewTitle;
+    foundItem.title = taskNewTitle;
 
-    setTasks(updatedTasks); 
+    setTasks(updatedTasks);
   }
 
   return (
     <View style={styles.container}>
       <Header tasksCounter={tasks.length} />
 
-      <TodoInput addTask={(newTaskTitle)=> handleAddTask(newTaskTitle)} />
+      <TodoInput addTask={(newTaskTitle) => handleAddTask(newTaskTitle)} />
 
-      <TasksList 
-        tasks={tasks} 
+      <TasksList
+        tasks={tasks}
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask}
         editTask={handleEditTask}
